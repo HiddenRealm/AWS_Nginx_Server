@@ -14,7 +14,7 @@ AWS Cloudformation for a simple Nginx Server
 
 # Possible Improvements:
   As this was just requesting a simple EC2 that loads up an Nginx Server, I didn't want to add a whole load of other services to it as 
-  I would be uploading more then one template, some of the services aren't part of the AWS free mode & Some might just be unnesscary depending other services you use.
+  I would be uploading more then one template, some of the services aren't part of the AWS free tier & Some might just be unnesscary depending other services you use.
   However I thought it best to atleast include some thoughts that come to mind when I was creating this
   
   ### Nginx Server
@@ -34,5 +34,8 @@ AWS Cloudformation for a simple Nginx Server
   5. Systems Manager - Systems manager has a built in Patching manager which can be set up to monitor and distribute patches to all instances.
     
   ### Security
-    A
-    
+  There is no real security in this setup a few things that could be used are;
+  
+  1. Security Groups - Although I did add a 'custom' security group it was generic and was only added a port 80 ingress to the default SG that AWS creates. More fleshed out Security groups and subnets would be needed for a more secure network.
+  2. IAM Role - I never created or used an IAM Role for this instance as it currently doesn't need to interact with anything else, however if this were to be used it would need the appropriate permissions for that.
+  3. KMS - I would have used a KMS key for encrypting the instance if it was available in free tier. If I would turn this into a live flesh out site, then I would use KMS Keys all over, one for this instance, one for the S3 buckets, one for the DB etc.
