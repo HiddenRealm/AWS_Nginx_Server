@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cloudformation Template - Nginx EC2
+Parameters:
+  pImageAMI:
+    Type: String
+    Description: AMI ID to be used to launch the instance
+  pImageType:
+    Type: String
+    Description: Image Type that the image will be launched as
+  pVpcId:
+    Type: String
+    Description: The Id of the VPC this SG should reside in
+Resources:
+  EC2SecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Allow All Security Group - Only for test instance
+      GroupName: NginxServerSG
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref pVpcId
+  EC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref pImageAMI
+      InstanceType: !Ref pImageType
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      UserData: 
+        'Fn::Base64': |
+          #!/bin/bash
+          sudo yum -y update
+          sudo yum -y install nginx
+          systemctl enable nginx
+          systemctl start nginx
+          touch index.html
+          echo \<html\> > index.html
+          echo \<h1\>Welcome\!\</h1\> >> index.html
+          echo \<p\>This is a simple static site to show of the Ngnix Server\</p\> >> index.html
+          echo \</html\> >> index.html
+          cp index.html /usr/share/nginx/html
+          

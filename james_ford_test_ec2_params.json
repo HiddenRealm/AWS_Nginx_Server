@@ -1,0 +1,14 @@
+[
+	{
+		"ParameterKey": "pImageAMI",
+		"ParameterValue": "ami-00c39f71452c08778"
+	},
+	{
+		"ParameterKey": "pImageType",
+		"ParameterValue": "t2.micro"
+	},
+	{
+		"ParameterKey": "pVpcId",
+		"ParameterValue": "vpc-068935c5175deafd5"
+	}
+]
