@@ -19,7 +19,8 @@ AWS Cloudformation for a simple Nginx Server
   
   ### Nginx Server
   The website that is currently loaded into Nginx is just a one page site with nothing going on, as well as being written in the userdata of the instance.
-  2 easy solutions for this if you wanted a more complex site.
+  Two easy solutions for this if you wanted a more complex site.
+  
     1. S3 - Using S3 to store the more complicated code, you could instead have the userdata pull the files from S3 & load them into Nginx on launch.
     2. Docker - Using Docker you could have a pre-built container that is set up will Nginx being loaded in with the correct site, that you will just have to pull down the repo in the userdata. I did actually originally have this code do that & still have the docker repo that I was going to use, however then I realised I would have to save my personal dockerhub login on AWS & I didn't feel comfortable doing that.
     
